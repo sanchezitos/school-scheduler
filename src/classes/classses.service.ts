@@ -75,7 +75,7 @@ export class ClassesService {
       throw new NotFoundException(`One or more students not found`);
     }
 
-    classEntity.students = [...classEntity.students, ...students];
+    classEntity.students = [...students];
     return this.classesRepository.save(classEntity);
   }
 

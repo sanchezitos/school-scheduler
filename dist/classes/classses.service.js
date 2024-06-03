@@ -78,7 +78,7 @@ let ClassesService = class ClassesService {
         if (students.length !== studentIds.length) {
             throw new common_1.NotFoundException(`One or more students not found`);
         }
-        classEntity.students = [...classEntity.students, ...students];
+        classEntity.students = [...students];
         return this.classesRepository.save(classEntity);
     }
     async remove(id) {
