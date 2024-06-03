@@ -10,6 +10,13 @@ El proyecto está organizado en los siguientes módulos:
 - **Teachers**: Gestiona los profesores.
 - **Students**: Gestiona los estudiantes.
 - **Classes**: Gestiona las clases.
+  
+## Tecnologías Utilizadas
+
+- NestJS ![NestJS](https://img.shields.io/badge/-NestJS-E0234E?style=flat-square&logo=nestjs&logoColor=white)
+- TypeScript ![TypeScript](https://img.shields.io/badge/-TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white)
+- TypeORM ![TypeORM](https://img.shields.io/badge/-TypeORM-F37626?style=flat-square&logoColor=white)
+- MySQL ![MySQL](https://img.shields.io/badge/-MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white)
 
 ## Requisitos Previos
 
@@ -44,3 +51,4 @@ El proyecto está organizado en los siguientes módulos:
 Para iniciar el servidor de desarrollo, ejecuta:
   ```bash
   npm run start:dev
+
