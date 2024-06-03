@@ -32,6 +32,10 @@ __decorate([
     __metadata("design:type", String)
 ], Student.prototype, "email", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' }),
+    __metadata("design:type", Date)
+], Student.prototype, "createdAt", void 0);
+__decorate([
     (0, typeorm_1.ManyToMany)(() => classes_entity_1.Class, (classEntity) => classEntity.students),
     __metadata("design:type", Array)
 ], Student.prototype, "classes", void 0);

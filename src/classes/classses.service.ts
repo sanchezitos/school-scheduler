@@ -4,7 +4,7 @@ import { In, Repository } from 'typeorm';
 import { Class } from './classes.entity';
 import { Teacher } from '../teachers/teachers.entity';
 import { Student } from '../students/students.entity';
-import { CreateClassDto } from '../common/dto/classes.dto';
+import { AssignStudentsDto, AssignTeacherDto, CreateClassDto } from '../common/dto/classes.dto';
 
 @Injectable()
 export class ClassesService {
@@ -43,6 +43,40 @@ export class ClassesService {
 
   async findOne(id: number): Promise<Class> {
     return this.classesRepository.findOne({ where: { id }, relations: ['teacher', 'students'] });
+  }
+
+  async assignTeacher(id: number, assignTeacherDto: AssignTeacherDto): Promise<Class> {
+    const { teacherId } = assignTeacherDto;
+    const classEntity = await this.classesRepository.findOne({ where: { id }, relations: ['teacher', 'students'] });
+
+    if (!classEntity) {
+      throw new NotFoundException(`Class with ID ${id} not found`);
+    }
+
+    const teacher = await this.teachersRepository.findOne({ where: { id: teacherId } });
+    if (!teacher) {
+      throw new NotFoundException(`Teacher with ID ${teacherId} not found`);
+    }
+
+    classEntity.teacher = teacher;
+    return this.classesRepository.save(classEntity);
+  }
+
+  async assignStudents(id: number, assignStudentsDto: AssignStudentsDto): Promise<Class> {
+    const { studentIds } = assignStudentsDto;
+    const classEntity = await this.classesRepository.findOne({ where: { id }, relations: ['teacher', 'students'] });
+
+    if (!classEntity) {
+      throw new NotFoundException(`Class with ID ${id} not found`);
+    }
+
+    const students = await this.studentsRepository.findBy({ id: In(studentIds) });
+    if (students.length !== studentIds.length) {
+      throw new NotFoundException(`One or more students not found`);
+    }
+
+    classEntity.students = [...classEntity.students, ...students];
+    return this.classesRepository.save(classEntity);
   }
 
   async remove(id: number): Promise<void> {

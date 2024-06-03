@@ -4,5 +4,6 @@ export declare class Student {
     firstName: string;
     lastName: string;
     email: string;
+    createdAt: Date;
     classes: Class[];
 }

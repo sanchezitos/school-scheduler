@@ -4,3 +4,9 @@ export declare class CreateClassDto {
     teacherId: number;
     studentIds: number[];
 }
+export declare class AssignTeacherDto {
+    teacherId: number;
+}
+export declare class AssignStudentsDto {
+    studentIds: number[];
+}

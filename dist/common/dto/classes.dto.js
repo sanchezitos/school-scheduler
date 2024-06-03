@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateClassDto = void 0;
+exports.AssignStudentsDto = exports.AssignTeacherDto = exports.CreateClassDto = void 0;
 const class_validator_1 = require("class-validator");
 class CreateClassDto {
 }
@@ -23,13 +23,25 @@ __decorate([
     __metadata("design:type", String)
 ], CreateClassDto.prototype, "subject", void 0);
 __decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", Number)
-], CreateClassDto.prototype, "teacherId", void 0);
-__decorate([
     (0, class_validator_1.IsArray)(),
-    (0, class_validator_1.ArrayNotEmpty)(),
     (0, class_validator_1.IsNumber)({}, { each: true }),
     __metadata("design:type", Array)
 ], CreateClassDto.prototype, "studentIds", void 0);
+class AssignTeacherDto {
+}
+exports.AssignTeacherDto = AssignTeacherDto;
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", Number)
+], AssignTeacherDto.prototype, "teacherId", void 0);
+class AssignStudentsDto {
+}
+exports.AssignStudentsDto = AssignStudentsDto;
+__decorate([
+    (0, class_validator_1.IsArray)(),
+    (0, class_validator_1.ArrayNotEmpty)(),
+    (0, class_validator_1.ArrayUnique)(),
+    (0, class_validator_1.IsNotEmpty)({ each: true }),
+    __metadata("design:type", Array)
+], AssignStudentsDto.prototype, "studentIds", void 0);
 //# sourceMappingURL=classes.dto.js.map

@@ -55,6 +55,32 @@ let ClassesService = class ClassesService {
     async findOne(id) {
         return this.classesRepository.findOne({ where: { id }, relations: ['teacher', 'students'] });
     }
+    async assignTeacher(id, assignTeacherDto) {
+        const { teacherId } = assignTeacherDto;
+        const classEntity = await this.classesRepository.findOne({ where: { id }, relations: ['teacher', 'students'] });
+        if (!classEntity) {
+            throw new common_1.NotFoundException(`Class with ID ${id} not found`);
+        }
+        const teacher = await this.teachersRepository.findOne({ where: { id: teacherId } });
+        if (!teacher) {
+            throw new common_1.NotFoundException(`Teacher with ID ${teacherId} not found`);
+        }
+        classEntity.teacher = teacher;
+        return this.classesRepository.save(classEntity);
+    }
+    async assignStudents(id, assignStudentsDto) {
+        const { studentIds } = assignStudentsDto;
+        const classEntity = await this.classesRepository.findOne({ where: { id }, relations: ['teacher', 'students'] });
+        if (!classEntity) {
+            throw new common_1.NotFoundException(`Class with ID ${id} not found`);
+        }
+        const students = await this.studentsRepository.findBy({ id: (0, typeorm_2.In)(studentIds) });
+        if (students.length !== studentIds.length) {
+            throw new common_1.NotFoundException(`One or more students not found`);
+        }
+        classEntity.students = [...classEntity.students, ...students];
+        return this.classesRepository.save(classEntity);
+    }
     async remove(id) {
         const classEntity = await this.classesRepository.findOne({ where: { id } });
         if (!classEntity) {

@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsArray, ArrayNotEmpty, IsNumber } from 'class-validator';
+import { IsNotEmpty, IsArray, ArrayNotEmpty, IsNumber, ArrayUnique } from 'class-validator';
 
 export class CreateClassDto {
   @IsNotEmpty()
@@ -7,11 +7,20 @@ export class CreateClassDto {
   @IsNotEmpty()
   subject: string;
 
-  @IsNotEmpty()
   teacherId: number;
 
   @IsArray()
-  @ArrayNotEmpty()
   @IsNumber({}, { each: true }) // Valida que cada elemento en el array sea un número
+  studentIds: number[];
+}
+export class AssignTeacherDto {
+  @IsNotEmpty()
+  teacherId: number;
+}
+export class AssignStudentsDto {
+  @IsArray()
+  @ArrayNotEmpty()
+  @ArrayUnique()
+  @IsNotEmpty({ each: true })
   studentIds: number[];
 }

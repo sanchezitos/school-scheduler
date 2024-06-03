@@ -23,8 +23,17 @@ let ClassesController = class ClassesController {
     findAll() {
         return this.classeservice.findAll();
     }
+    findOne(id) {
+        return this.classeservice.findOne(id);
+    }
     create(createClassDto) {
         return this.classeservice.create(createClassDto);
+    }
+    async assignTeacher(id, assignTeacherDto) {
+        return this.classeservice.assignTeacher(id, assignTeacherDto);
+    }
+    async assignStudents(id, assignStudentsDto) {
+        return this.classeservice.assignStudents(id, assignStudentsDto);
     }
     remove(id) {
         return this.classeservice.remove(id);
@@ -38,12 +47,35 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ClassesController.prototype, "findAll", null);
 __decorate([
+    (0, common_1.Get)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], ClassesController.prototype, "findOne", null);
+__decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)(common_1.ValidationPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [classes_dto_1.CreateClassDto]),
     __metadata("design:returntype", Promise)
 ], ClassesController.prototype, "create", null);
+__decorate([
+    (0, common_1.Post)(':id/assign-teacher'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)(common_1.ValidationPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, classes_dto_1.AssignTeacherDto]),
+    __metadata("design:returntype", Promise)
+], ClassesController.prototype, "assignTeacher", null);
+__decorate([
+    (0, common_1.Post)(':id/assign-students'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)(common_1.ValidationPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, classes_dto_1.AssignStudentsDto]),
+    __metadata("design:returntype", Promise)
+], ClassesController.prototype, "assignStudents", null);
 __decorate([
     (0, common_1.Delete)(':id'),
     __param(0, (0, common_1.Param)('id')),
